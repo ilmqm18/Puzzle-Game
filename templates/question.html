@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>คำถามระดับ {{ level }}</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #e0f2ff, #fefefe);
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px;
+      position: relative;
+      border: 1px solid #e0e0e0;
+    }
+
+    .timer {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0077cc;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 16px;
+      box-shadow: 0 4px 8px rgba(0, 119, 204, 0.3);
+    }
+
+    h2 {
+      color: #0077cc;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .score {
+      text-align: center;
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    form {
+      margin-top: 10px;
+    }
+
+    label {
+      display: block;
+      background: #f9f9f9;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    label:hover {
+      background-color: #e6f2ff;
+      border-color: #0077cc;
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 14px 20px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="timer" id="timer">⏳ กำลังเริ่ม...</div>
+    <h2>🧠 เกมปริศนา - ระดับ {{ level }}</h2>
+    <div class="score">💰 คะแนน: {{ score }} บาท</div>
+
+    <form method="post">
+      <p><strong>{{ question }}</strong></p>
+      {% for key, value in choices.items() %}
+        <label>
+          <input type="radio" name="answer" value="{{ key }}" required>
+          {{ key }}. {{ value }}
+        </label>
+      {% endfor %}
+      <button type="submit">✅ ส่งคำตอบ</button>
+    </form>
+  </div>
+
+  <!-- แสดงเวลาแบบไม่ทำให้ JS Error -->
+  <div id="start-time" data-start="{{ session['start_time'] | default(0) | round(0) }}"></div>
+
+  <script>
+    const TIME_LIMIT = 300; // 5 นาที
+    const startTimestamp = parseInt(document.getElementById("start-time").dataset.start) * 1000;
+    const timerElement = document.getElementById("timer");
+
+    function updateTimer() {
+      const now = Date.now();
+      const elapsed = Math.floor((now - startTimestamp) / 1000);
+      const remaining = TIME_LIMIT - elapsed;
+
+      if (remaining <= 0) {
+        timerElement.textContent = "⏰ หมดเวลา!";
+        alert("⏰ หมดเวลาแล้ว! จะเริ่มเกมใหม่");
+        window.location.href = "/";
+        return;
+      }
+
+      const minutes = Math.floor(remaining / 60);
+      const seconds = remaining % 60;
+      timerElement.textContent = `⏳ เหลือเวลา: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  </script>
+</body>
+</html>
