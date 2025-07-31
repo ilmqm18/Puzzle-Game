@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import random
-import time
+from datetime import datetime
 
 app = Flask(__name__)
-app.secret_key = 'secret'
+app.secret_key = 'your_secret_key'
 
 # ------------------- คำถาม -------------------
 questions = {
@@ -21,22 +21,41 @@ questions = {
         ("เมืองหลวงของญี่ปุ่นคือ?", {"A": "โซล", "B": "ปักกิ่ง", "C": "ฮานอย", "D": "โตเกียว"}, "D")
     ]
 }
+
 rewards = {level: 100 * (2 ** (level - 1)) for level in range(1, 11)}
 
+# ------------------- เก็บอันดับ (Leaderboard) แบบง่าย -------------------
+leaderboard = []  # list ของ dict เช่น {'name':..., 'order':..., 'score':...}
+
 # ------------------- เส้นทาง -------------------
-@app.route("/")
+@app.route('/')
 def index():
-    session['start_time'] = time.time()
-    session['level'] = 1
+    return render_template('index.html')
+
+# ฟอร์มป้อนชื่อ + ลำดับ
+@app.route('/start', methods=['POST'])
+def start_game():
+    session['name'] = request.form['name']
+    session['order'] = request.form['order']
     session['score'] = 0
+    session['level'] = 1
     session['asked'] = []
-    return redirect(url_for('question'))
+    session['start_time'] = int(datetime.now().timestamp())
+    return redirect('/question')
 
 @app.route("/question", methods=["GET", "POST"])
 def question():
     level = session.get('level', 1)
     if level > 3:
-        return render_template("win.html", score=session['score'])
+        # บันทึกคะแนนลง leaderboard ก่อนแสดงหน้าชนะ
+        leaderboard.append({
+            'name': session.get('name', 'Unknown'),
+            'order': session.get('order', 'Unknown'),
+            'score': session.get('score', 0)
+        })
+        # เรียง leaderboard จากคะแนนสูงไปต่ำ
+        leaderboard.sort(key=lambda x: x['score'], reverse=True)
+        return render_template("win.html", score=session['score'], name=session['name'], order=session['order'])
 
     if request.method == "POST":
         user_answer = request.form.get("answer")
@@ -62,8 +81,13 @@ def question():
     session['current'] = current
     session['asked'] = asked
 
-    return render_template("question.html", level=level, question=current[0], choices=current[1], score=session['score'])
+    return render_template("question.html", level=level, question=current[0], choices=current[1], score=session['score'], name=session['name'], order=session['order'])
+
+# แสดงหน้า leaderboard
+@app.route('/leaderboard')
+def show_leaderboard():
+    return render_template('leaderboard.html', leaderboard=leaderboard)
 
 # ------------------- เริ่มแอป -------------------
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5001)

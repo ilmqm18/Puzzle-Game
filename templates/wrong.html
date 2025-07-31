@@ -1,9 +1,78 @@
 <!DOCTYPE html>
 <html lang="th">
-<head><meta charset="UTF-8"><title>ผิด!</title></head>
+<head>
+  <meta charset="UTF-8">
+  <title>ผิด!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fefefe;
+      font-family: 'Sarabun', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 40px 30px;
+      border: 3px solid #ff4d4f;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 420px;
+    }
+
+    h2 {
+      color: #d40000;
+      margin-bottom: 20px;
+      font-size: 30px;
+    }
+
+    p {
+      font-size: 18px;
+      color: #444;
+      margin-bottom: 10px;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #c0392b;
+    }
+
+    .score {
+      margin-top: 10px;
+      font-size: 20px;
+      color: #555;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 10px 20px;
+      background-color: #4b0082;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    a:hover {
+      background-color: #360066;
+    }
+  </style>
+</head>
 <body>
-  <h2>❌ คำตอบผิด!</h2>
-  <p>คำตอบที่ถูกคือ: {{ correct }} - {{ answer }}</p>
-  <a href="/">เริ่มใหม่</a>
+  <div class="container">
+    <h2>❌ คำตอบผิด!</h2>
+    <p>ชื่อผู้เล่น: <span class="highlight">{{ name }}</span></p>
+    <p>ลำดับที่: <span class="highlight">{{ order }}</span></p>
+    <p>คำตอบที่ถูกคือ: <strong>{{ correct }} - {{ answer }}</strong></p>
+    <p class="score">💰 เงินรางวัลที่คุณสะสมได้: <strong>{{ score }}</strong> บาท</p>
+    <a href="/">เริ่มใหม่</a>
+  </div>
 </body>
 </html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>สรุปผลคะแนน</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Sarabun', sans-serif;
+      background-color: #fffdf5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #ffffff;
+      border: 3px solid #0077b6;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      padding: 40px;
+      text-align: center;
+      max-width: 450px;
+    }
+
+    h2 {
+      color: #0077b6;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+
+    .highlight {
+      color: #d35400;
+      font-weight: bold;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 10px 20px;
+      background-color: #0077b6;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+    }
+
+    a:hover {
+      background-color: #005f8e;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📊 สรุปผลผู้เล่น</h2>
+    <p>ชื่อ: <span class="highlight">{{ name }}</span></p>
+    <p>คะแนนที่ได้: <span class="highlight">{{ score }}</span> บาท</p>
+    <p>ลำดับ: <span class="highlight">{{ rank }}</span></p>
+    <a href="/">กลับหน้าแรก</a>
+  </div>
+</body>
+</html>

@@ -1,9 +1,77 @@
 <!DOCTYPE html>
 <html lang="th">
-<head><meta charset="UTF-8"><title>ชนะ!</title></head>
+<head>
+  <meta charset="UTF-8">
+  <title>ชนะ!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fffdf5;
+      font-family: 'Sarabun', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 40px 30px;
+      border: 3px solid #ffd700;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 400px;
+    }
+
+    h2 {
+      color: #c29e00;
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 20px;
+      color: #333333;
+      margin: 8px 0;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #0077cc;
+    }
+
+    .score {
+      font-size: 22px;
+      color: #c29e00;
+      margin: 20px 0;
+    }
+
+    a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #c29e00;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+    }
+
+    a:hover {
+      background-color: #a98400;
+    }
+  </style>
+</head>
 <body>
-  <h2>🏆 ยินดีด้วย! คุณชนะ!</h2>
-  <p>💰 เงินรางวัลรวม: {{ score }} บาท</p>
-  <a href="/">เล่นอีกครั้ง</a>
+  <div class="container">
+    <h2>🏆 ยินดีด้วย! คุณชนะ!</h2>
+    <p>ชื่อผู้เล่น: <span class="highlight">{{ name }}</span></p>
+    <p>ลำดับที่: <span class="highlight">{{ order }}</span></p>
+    <p class="score">💰 เงินรางวัลรวม: <strong>{{ score }}</strong> บาท</p>
+    <a href="/">เล่นอีกครั้ง</a>
+  </div>
 </body>
 </html>

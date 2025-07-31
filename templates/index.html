@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>เข้าสู่เกม</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #e0f7fa, #fff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .form-card {
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #0077cc;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 14px 20px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+<body>
+  <form class="form-card" method="POST" action="/start">
+    <h2>🎯 เริ่มเกมปริศนา</h2>
+    <input type="text" name="name" placeholder="กรอกชื่อของคุณ" required>
+    <input type="text" name="order" placeholder="ลำดับ (เช่น คนที่ 1)" required>
+    <button type="submit">เริ่มเกม</button>
+  </form>
+</body>
+</html>

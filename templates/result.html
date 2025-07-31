@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>🎉 คุณชนะแล้ว!</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #d0f0d0, #fefefe);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 80px;
+    }
+    .result-box {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .result-box h1 {
+      color: #2ecc71;
+      font-size: 36px;
+    }
+    .result-box p {
+      font-size: 20px;
+      color: #333;
+    }
+    .result-box a {
+      margin-top: 30px;
+      display: inline-block;
+      padding: 12px 24px;
+      background: #0077cc;
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+    }
+    .result-box a:hover {
+      background: #005fa3;
+    }
+  </style>
+</head>
+<body>
+  <div class="result-box">
+    <h1>🎉 ยินดีด้วย!</h1>
+    <p>คุณได้รับรางวัลทั้งหมด: <strong>{{ score }} บาท</strong></p>
+    <a href="/">🔁 เล่นอีกครั้ง</a>
+  </div>
+</body>
+</html>
